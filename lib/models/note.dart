@@ -14,7 +14,7 @@ class Note extends HiveObject with EquatableMixin {
   @HiveField(2)
   final String body;
 
-  const Note({
+  Note({
     required this.id,
     required this.title,
     required this.body,
