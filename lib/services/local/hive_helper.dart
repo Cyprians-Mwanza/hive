@@ -30,8 +30,4 @@ class HiveHelper {
     await box.delete(id);
   }
 
-  Future<void> clearAll() async {
-    final box = Hive.box<Note>(_boxName);
-    await box.clear();
-  }
 }
