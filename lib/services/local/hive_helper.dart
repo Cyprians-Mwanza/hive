@@ -10,14 +10,19 @@ class HiveHelper {
     }
   }
 
+  Future<void> addNote(Note note) async {
+    final box = Hive.box<Note>(_boxName);
+    await box.put(note.id, note);
+  }
+
   Future<List<Note>> getNotes() async {
     final box = Hive.box<Note>(_boxName);
     return box.values.toList();
   }
 
-  Future<void> addNote(Note note) async {
+  Future<Note?> getNoteById(String id) async {
     final box = Hive.box<Note>(_boxName);
-    await box.put(note.id, note);
+    return box.get(id);
   }
 
   Future<void> updateNote(Note note) async {
@@ -30,4 +35,14 @@ class HiveHelper {
     await box.delete(id);
   }
 
+  Future<void> deleteAllNotes() async {
+    final box = Hive.box<Note>(_boxName);
+    await box.clear();
+  }
+
+  Future<void> closeBox() async {
+    if (Hive.isBoxOpen(_boxName)) {
+      await Hive.box<Note>(_boxName).close();
+    }
+  }
 }
